@@ -11,11 +11,16 @@ public class BuildingConstructionFinishedListener {
     @EventListener(BuildingConstructionFinishedListener.class)
     public BuildingLeveledUp execute(BuildingConstructionFinished event) {
         checkResourcesLease(event.getResourcesLeaseId());
+        destroyResourceLease(event.getResourcesLeaseId());
         Building leveledUpBuilding = incrementBuildingLevel(event.getBuildingType(), event.getPlanetId());
         return createBuildingLeveledUpEvent(leveledUpBuilding);
     }
 
     private void checkResourcesLease(String resourcesLeaseId) {
+
+    }
+
+    private void destroyResourceLease(String resourcesLeaseId) {
 
     }
 
