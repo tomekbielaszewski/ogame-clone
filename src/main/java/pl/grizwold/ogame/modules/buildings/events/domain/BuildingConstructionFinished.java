@@ -6,6 +6,7 @@ import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 
 @Value
 public class BuildingConstructionFinished extends Event {
-    private String resourcesLoanId;
+    private String resourcesLeaseId;
     private BuildingType buildingType;
+    private String planetId;
 }
