@@ -21,7 +21,7 @@ public class BuildingConstructionFinishedListener {
     }
 
     private void destroyResourceLease(String resourcesLeaseId) {
-
+        //rise an event rather calling the module!
     }
 
     private Building incrementBuildingLevel(BuildingType buildingType, String planetId) {
