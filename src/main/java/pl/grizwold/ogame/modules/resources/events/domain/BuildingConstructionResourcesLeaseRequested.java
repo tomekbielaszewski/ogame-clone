@@ -8,4 +8,5 @@ import pl.grizwold.ogame.modules.resources.domain.Cost;
 public class BuildingConstructionResourcesLeaseRequested extends Event {
     private String constructionSiteId;
     private Cost cost;
+    private String planetId;
 }
