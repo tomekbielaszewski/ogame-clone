@@ -28,6 +28,6 @@ public enum BuildingType {
     }
 
     private static Cost cost() {
-        return Cost.builder().build();
+        return new Cost(1,1,1);
     }
 }
