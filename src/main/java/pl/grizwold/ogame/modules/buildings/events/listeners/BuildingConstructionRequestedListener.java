@@ -16,7 +16,7 @@ public class BuildingConstructionRequestedListener {
         Cost cost = calculateResourcesNeededToLevelUp(building);
         checkResourcesAvailable(cost);
         ConstructionSite constructionSite = saveConstructionSite(building);
-        return createBuildingConstructionResourcesLeaseRequestEvent(cost, constructionSite.getId());
+        return createBuildingConstructionResourcesLeaseRequestEvent(cost, constructionSite.getId(), event.getPlanetId());
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -26,7 +26,7 @@ public class BuildingConstructionRequestedListener {
 
     private Cost calculateResourcesNeededToLevelUp(Building building) {
         // get actual building level
-        // calculate the cost for level up
+        // using Ogame formula calculate the cost for level up
         return new Cost(48, 24, 0);
     }
 
@@ -41,7 +41,7 @@ public class BuildingConstructionRequestedListener {
         return new ConstructionSite("DB provided ID", building);
     }
 
-    private BuildingConstructionResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Cost cost, String constructionSiteId) {
-        return new BuildingConstructionResourcesLeaseRequested(constructionSiteId, cost);
+    private BuildingConstructionResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Cost cost, String constructionSiteId, String planetId) {
+        return new BuildingConstructionResourcesLeaseRequested(constructionSiteId, cost, planetId);
     }
 }

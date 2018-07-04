@@ -31,7 +31,7 @@ public class BuildingConstructionResourcesLeasedListener {
     }
 
     private long calculateConstructionDurationInSeconds(Building building) {
-        // use Ogame formua to calculate time needed to construct a building
+        // use Ogame formula to calculate time needed to construct a building
         return 1;
     }
 
