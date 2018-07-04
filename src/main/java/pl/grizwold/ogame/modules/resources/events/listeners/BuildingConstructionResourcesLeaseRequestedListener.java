@@ -25,10 +25,10 @@ public class BuildingConstructionResourcesLeaseRequestedListener {
     private ResourcesLease makeResourcesLease(Cost cost, String planetId) {
         // subtract resources from planet
         // save resource lease in module DB
-        return new ResourcesLease(cost.getMetal(), cost.getCrystal(), cost.getDeuterium(), planetId);
+        return new ResourcesLease("DB provided ID", cost.getMetal(), cost.getCrystal(), cost.getDeuterium(), planetId);
     }
 
     private BuildingConstructionResourcesLeased createBuildingConstructionResourcesLeasedEvent(ResourcesLease lease, String constructionSiteId) {
-        return new BuildingConstructionResourcesLeased(lease, constructionSiteId);
+        return new BuildingConstructionResourcesLeased(lease.getId(), constructionSiteId);
     }
 }

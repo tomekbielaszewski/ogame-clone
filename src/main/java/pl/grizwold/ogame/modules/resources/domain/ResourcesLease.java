@@ -4,6 +4,7 @@ import lombok.Value;
 
 @Value
 public class ResourcesLease {
+    private String id;
     private int metal;
     private int crystal;
     private int deuterium;
