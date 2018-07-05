@@ -1,16 +1,19 @@
 package pl.grizwold.ogame.modules.scheduler.events.listeners;
 
 import org.springframework.context.event.EventListener;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingConstructionFinished;
-import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledBuildingConstructionFinishRequest;
+import pl.grizwold.ogame.common.domain.Event;
+import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledEventRequested;
+
+import java.time.LocalDateTime;
 
 public class ScheduledBuildingConstructionFinishRequestListener {
 
-    @EventListener(ScheduledBuildingConstructionFinishRequest.class)
-    public BuildingConstructionFinished execute(ScheduledBuildingConstructionFinishRequest event) {
-        //deffer the event somehow
+    @EventListener(ScheduledEventRequested.class)
+    public void execute(ScheduledEventRequested event) {
+        saveScheduledEvent(event.getEvent(), event.getFinishDate());
+    }
 
-        //totally incorrect data, just keeping the flow here. Will think about it later
-        return new BuildingConstructionFinished("1", null, "");
+    private void saveScheduledEvent(Event event, LocalDateTime finishDate) {
+        //save event in module-private DB
     }
 }

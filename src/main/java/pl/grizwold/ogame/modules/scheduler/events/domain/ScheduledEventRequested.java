@@ -6,7 +6,7 @@ import pl.grizwold.ogame.common.domain.Event;
 import java.time.LocalDateTime;
 
 @Value
-public class ScheduledBuildingConstructionFinishRequest extends Event {
+public class ScheduledEventRequested extends Event {
     private LocalDateTime finishDate;
-    private String constructionSiteId;
+    private Event event;
 }
