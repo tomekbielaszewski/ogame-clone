@@ -1,0 +1,43 @@
+@startuml
+
+skinparam activity {
+  BackgroundColor<< Error >> Red
+}
+
+(*) --> "BuildingConstructionRequested"
+
+"BuildingConstructionRequested" --> if "Enough resources available?" then
+    --> [true] "BuildingConstructionResourcesLeaseRequested"
+else
+    -r-> [false] "TODO1: no resources" << Error >>
+endif
+
+
+"BuildingConstructionResourcesLeaseRequested" --> if "Enough resources available?" then
+    --> [true] "BuildingConstructionResourcesLeased"
+else
+    -r-> [false] "TODO2: no resources" << Error >>
+endif
+
+"BuildingConstructionResourcesLeased" -l-> "ResourcesSpent"
+
+if "Storage was full and now is not?" then
+    --> [true] "StorageSpaceAvailable"
+endif
+
+"BuildingConstructionResourcesLeased" --> "ScheduledEventRequested"
+...> [Deffered execution] "BuildingConstructionFinished"
+
+"BuildingConstructionFinished" -l-> if "Resource lease still exist?" then
+    --> [true] "ResourceLeaseUsed"
+else
+    -l-> [false] "TODO3: resource lease destroyed - construction canceled?" << Error >>
+endif
+
+"BuildingConstructionFinished" -r-> if "Construction site still exist?" then
+    --> [true] "BuildingLeveledUp"
+else
+    -r-> [false] "TODO4: construction site gone - construction canceled?" << Error >>
+endif
+
+@enduml
