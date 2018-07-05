@@ -1,26 +1,27 @@
 @startuml
 
-skinparam activity {
-  BackgroundColor<< Error >> Red
-}
+start
 
-(*) --> "BuildingConstructionCancelRequested"
+:BuildingConstructionCancelRequested;
 
-"BuildingConstructionCancelRequested" --> if "Construction site exist?" then
-    --> if "Resource lease exist?" then
-            --> [true] "ResourcesLeaseCancellationRequested"
-        else
-            -r-> [false] "TODO: resource lease does not exist - canceled before?" << Error >>
-        endif
-else
-    -r-> [false] "TODO: construction site does not exist - canceled before?" << Error >>
+if (Construction site exist?) then (true)
+    if (Resource lease exist?) then (true)
+        :ResourcesLeaseCancellationRequested;
+    else (false)
+        #red:TODO: resource lease does not exist - canceled before?;
+    endif
+else (false)
+    #red:TODO: construction site does not exist - canceled before?;
 endif
 
-"ResourcesLeaseCancellationRequested" --> "ResourcesLeaseCanceled"
---> "ResourceEarned"
+:ResourcesLeaseCancellationRequested;
+:ResourcesLeaseCanceled;
+:ResourceEarned;
 
-if "Storage full?" then
-    --> [true] "StorageFilled"
+if (Storage full?) then (true)
+    :StorageFilled;
 endif
+
+end
 
 @enduml
