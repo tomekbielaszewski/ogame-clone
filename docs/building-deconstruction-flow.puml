@@ -1,0 +1,50 @@
+@startuml
+
+start
+
+:BuildingDeconstructionRequested;
+if (Building lvl > 0?) then (true)
+    if (Enough resources available?) then (true)
+        :BuildingDeconstructionResourcesLeased;
+        if (Enough resources available?) then (true)
+        split
+            :ResourcesSpent;
+            if(Storage was full and now is not?) then (true)
+                :StorageSpaceAvailable;
+                detach
+            else
+                end
+            endif
+        split again
+            :ScheduledEventRequested;
+            -[dotted]-> Deffered execution;
+            :BuildingDestructionFinished;
+            split
+                if (Resource lease still exist?) then (true)
+                    :ResourceLeaseUsed;
+                    detach
+                else (false)
+                    #red:TODO: resource lease already destroyed
+                    deconstruction canceled?
+                    event fired multiple times?;
+                    end
+                endif
+            split again
+                :BuildingDeconstructed;
+                detach
+            end split
+        end split
+        else
+            #red:TODO: Insufficient resources;
+            end
+        endif
+    else (false)
+        #red:TODO: Insufficient resources;
+        end
+    endif
+else (false)
+    #red:TODO1: level to low;
+    end
+endif
+
+@enduml
