@@ -2,7 +2,7 @@ package pl.grizwold.ogame.modules.scheduler;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
-public class Scheduler {
+class Scheduler {
 
     @Scheduled(fixedRate = 1000)
     void riseScheduledEvents() {
