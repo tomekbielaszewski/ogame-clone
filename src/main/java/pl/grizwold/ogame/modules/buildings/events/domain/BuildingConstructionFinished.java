@@ -9,4 +9,5 @@ public class BuildingConstructionFinished extends Event {
     private String resourcesLeaseId;
     private BuildingType buildingType;
     private String planetId;
+    private String constructionSiteId;
 }

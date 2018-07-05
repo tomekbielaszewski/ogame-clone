@@ -38,7 +38,7 @@ public class BuildingConstructionResourcesLeasedListener {
     }
 
     private BuildingConstructionFinished createConstructionFinishedEvent(BuildingConstructionResourcesLeased event, Building building) {
-        return new BuildingConstructionFinished(event.getResourceLeaseId(), building.getType(), building.getPlanetId());
+        return new BuildingConstructionFinished(event.getResourceLeaseId(), building.getType(), building.getPlanetId(), event.getConstructionSiteId());
     }
 
     private ScheduledEventRequested scheduleEvent(LocalDateTime finish, Event event) {
