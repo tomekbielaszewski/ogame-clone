@@ -19,12 +19,8 @@ public class BuildingConstructionResourcesLeasedListener {
         ConstructionSite constructionSite = getConstructionSite(event.getConstructionSiteId());
         attachResourceLeaseToConstructionSite(event.getResourceLeaseId(), constructionSite);
         long constructionDuration = calculateConstructionDurationInSeconds(constructionSite.getBuilding());
-        LocalDateTime dateTimeOfConstructionFinish = LocalDateTime.now().plus(constructionDuration, ChronoUnit.SECONDS);
-        return scheduleEvent(dateTimeOfConstructionFinish, createConstructionFinishedEvent(event, constructionSite.getBuilding()));
-    }
-
-    private void attachResourceLeaseToConstructionSite(String resourceLeaseId, ConstructionSite constructionSite) {
-        // update construction site with resourceLeaseId
+        LocalDateTime dateTimeOfConstructionFinish = convertDurationToExactDateTime(constructionDuration);
+        return scheduledEvent(dateTimeOfConstructionFinish, createConstructionFinishedEvent(event, constructionSite.getBuilding()));
     }
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
@@ -32,16 +28,24 @@ public class BuildingConstructionResourcesLeasedListener {
         return new ConstructionSite(constructionSiteId, new Building(1, BuildingType.METAL_MINE, "owner", "planetId"));
     }
 
+    private void attachResourceLeaseToConstructionSite(String resourceLeaseId, ConstructionSite constructionSite) {
+        // update construction site with resourceLeaseId
+    }
+
     private long calculateConstructionDurationInSeconds(Building building) {
         // use Ogame formula to calculate time needed to construct a building
         return 1;
+    }
+
+    private LocalDateTime convertDurationToExactDateTime(long constructionDuration) {
+        return LocalDateTime.now().plus(constructionDuration, ChronoUnit.SECONDS);
     }
 
     private BuildingConstructionFinished createConstructionFinishedEvent(BuildingConstructionResourcesLeased event, Building building) {
         return new BuildingConstructionFinished(event.getResourceLeaseId(), building.getType(), building.getPlanetId(), event.getConstructionSiteId());
     }
 
-    private ScheduledEventRequested scheduleEvent(LocalDateTime finish, Event event) {
+    private ScheduledEventRequested scheduledEvent(LocalDateTime finish, Event event) {
         return new ScheduledEventRequested(finish, event);
     }
 }

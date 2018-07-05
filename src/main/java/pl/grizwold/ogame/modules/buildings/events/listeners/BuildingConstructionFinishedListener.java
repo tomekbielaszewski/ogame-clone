@@ -13,7 +13,7 @@ import java.util.List;
 
 public class BuildingConstructionFinishedListener {
 
-    @EventListener(BuildingConstructionFinishedListener.class)
+    @EventListener(BuildingConstructionFinished.class)
     public List<Event> execute(BuildingConstructionFinished event) {
         checkResourcesLease(event.getResourcesLeaseId());
         checkConstructionSite(event.getConstructionSiteId());
@@ -23,11 +23,11 @@ public class BuildingConstructionFinishedListener {
     }
 
     private void checkResourcesLease(String resourcesLeaseId) {
-        //validate existence of resource lease (construction could be canceled?)
+        // validate existence of resource lease (construction could be canceled?)
     }
 
     private void checkConstructionSite(String constructionSiteId) {
-        //validate existence of construction site (could be removed/canceled?)
+        // validate existence of construction site (could be removed/canceled?)
     }
 
     private Event destroyResourceLease(String resourcesLeaseId) {
@@ -35,9 +35,9 @@ public class BuildingConstructionFinishedListener {
     }
 
     private Event incrementBuildingLevel(BuildingType buildingType, String planetId) {
-        //get building from module db
-        //increment building level
-        //save building
+        // get building from module db
+        // increment building level
+        // save building
         return createBuildingLeveledUpEvent(null);
     }
 

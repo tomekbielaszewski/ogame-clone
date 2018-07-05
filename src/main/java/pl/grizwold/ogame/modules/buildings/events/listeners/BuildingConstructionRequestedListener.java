@@ -21,6 +21,7 @@ public class BuildingConstructionRequestedListener {
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
         // get building from modules database
+        // or create new with 0 lvl
         return new Building(1, buildingType, "ownerId", planetId);
     }
 

@@ -17,9 +17,7 @@ public class BuildingConstructionResourcesLeaseRequestedListener {
 
     private void checkResourcesAvailable(Cost cost, String planetId) {
         // check if resources are available on planet
-        // if not:
-        // throw exception?
-        // raise event?
+        // if not raise event to the user
     }
 
     private ResourcesLease makeResourcesLease(Cost cost, String planetId) {
