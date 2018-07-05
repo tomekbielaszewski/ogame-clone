@@ -1,43 +1,94 @@
 @startuml
 
-skinparam activity {
-  BackgroundColor<< Error >> Red
-}
+'skinparam activity {
+'  BackgroundColor<< Error >> Red
+'}
+'
+'(*) --> "BuildingConstructionRequested"
+'
+'"BuildingConstructionRequested" --> if "Enough resources available?" then
+'    --> [true] "BuildingConstructionResourcesLeaseRequested"
+'else
+'    -r-> [false] "TODO1: no resources" << Error >>
+'endif
+'
+'
+'"BuildingConstructionResourcesLeaseRequested" --> if "Enough resources available?" then
+'    --> [true] "BuildingConstructionResourcesLeased"
+'else
+'    -r-> [false] "TODO2: no resources" << Error >>
+'endif
+'
+'"BuildingConstructionResourcesLeased" -l-> "ResourcesSpent"
+'
+'if "Storage was full and now is not?" then
+'    --> [true] "StorageSpaceAvailable"
+'endif
+'
+'"BuildingConstructionResourcesLeased" --> "ScheduledEventRequested"
+'...> [Deffered execution] "BuildingConstructionFinished"
+'
+'"BuildingConstructionFinished" -l-> if "Resource lease still exist?" then
+'    --> [true] "ResourceLeaseUsed"
+'else
+'    -l-> [false] "TODO3: resource lease destroyed - construction canceled?" << Error >>
+'endif
+'
+'"BuildingConstructionFinished" -r-> if "Construction site still exist?" then
+'    --> [true] "BuildingLeveledUp"
+'else
+'    -r-> [false] "TODO4: construction site gone - construction canceled?" << Error >>
+'endif
 
-(*) --> "BuildingConstructionRequested"
+start
 
-"BuildingConstructionRequested" --> if "Enough resources available?" then
-    --> [true] "BuildingConstructionResourcesLeaseRequested"
-else
-    -r-> [false] "TODO1: no resources" << Error >>
+:BuildingConstructionRequested;
+
+if (Enough resources available?) then (true)
+    :BuildingConstructionResourcesLeaseRequested;
+    if (Enough resources available?) then (true)
+        :BuildingConstructionResourcesLeased;
+        split
+            :ResourcesSpent;
+            if(Storage was full and now is not?) then (true)
+                :StorageSpaceAvailable;
+                detach
+            else
+                end
+            endif
+        split again
+            :ScheduledEventRequested;
+            -[dotted]-> Deffered execution;
+            :BuildingConstructionFinished;
+            split
+                if (Resource lease still exist?) then (true)
+                    :ResourceLeaseUsed;
+                else (false)
+                    #red:TODO: resource lease already destroyed
+                    construction canceled?
+                    event fired multiple times?;
+                endif
+            split again
+                if (Construction site still exist?) then (true)
+                    :BuildingLeveledUp;
+                else (false)
+                    #red:TODO: construction site already gone
+                    construction canceled?
+                    event fired multiple times?;
+                endif
+            end split
+        end
+        end split
+    else (false)
+        #red:TODO: no resources;
+        end
+    endif
+else (false)
+    #red:TODO: no resources;
+    end
 endif
 
 
-"BuildingConstructionResourcesLeaseRequested" --> if "Enough resources available?" then
-    --> [true] "BuildingConstructionResourcesLeased"
-else
-    -r-> [false] "TODO2: no resources" << Error >>
-endif
 
-"BuildingConstructionResourcesLeased" -l-> "ResourcesSpent"
-
-if "Storage was full and now is not?" then
-    --> [true] "StorageSpaceAvailable"
-endif
-
-"BuildingConstructionResourcesLeased" --> "ScheduledEventRequested"
-...> [Deffered execution] "BuildingConstructionFinished"
-
-"BuildingConstructionFinished" -l-> if "Resource lease still exist?" then
-    --> [true] "ResourceLeaseUsed"
-else
-    -l-> [false] "TODO3: resource lease destroyed - construction canceled?" << Error >>
-endif
-
-"BuildingConstructionFinished" -r-> if "Construction site still exist?" then
-    --> [true] "BuildingLeveledUp"
-else
-    -r-> [false] "TODO4: construction site gone - construction canceled?" << Error >>
-endif
 
 @enduml
