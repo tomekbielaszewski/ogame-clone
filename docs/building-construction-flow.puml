@@ -23,28 +23,31 @@ if (Enough resources available?) then (true)
             split
                 if (Resource lease still exist?) then (true)
                     :ResourceLeaseUsed;
+                    detach
                 else (false)
                     #red:TODO: resource lease already destroyed
                     construction canceled?
                     event fired multiple times?;
+                    end
                 endif
             split again
                 if (Construction site still exist?) then (true)
                     :BuildingLeveledUp;
+                    detach
                 else (false)
                     #red:TODO: construction site already gone
                     construction canceled?
                     event fired multiple times?;
+                    end
                 endif
             end split
-        end
         end split
     else (false)
-        #red:TODO: no resources;
+        #red:TODO: Insufficient resources;
         end
     endif
 else (false)
-    #red:TODO: no resources;
+    #red:TODO: Insufficient resources;
     end
 endif
 
