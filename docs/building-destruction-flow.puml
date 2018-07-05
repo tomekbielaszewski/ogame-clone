@@ -1,24 +1,22 @@
 @startuml
 
-skinparam activity {
-  BackgroundColor<< Error >> Red
-}
+start
 
-(*) --> "BuildingDestructionRequested"
-
-"BuildingDestructionRequested" --> if "Building lvl > 0?" then
-    --> [true] "ScheduledEventRequested"
-else
-    -r-> [false] "TODO1: level to low" << Error >>
-endif
-
-"ScheduledEventRequested" ...> [Deffered execution] "BuildingDestructionFinished"
---> "ResourcesRefundRequested"
-"ResourcesRefundRequested" --> "ResourcesRefunded"
---> "ResourcesEarned"
-
-if "Storage full?" then
-    --> [true] "StorageFilled"
+:BuildingDestructionRequested;
+if (Building lvl > 0?) then (true)
+    :ScheduledEventRequested;
+    -[dotted]-> Deffered execution;
+    :BuildingDestructionFinished;
+    :ResourcesRefundRequested;
+    :ResourcesRefunded;
+    :ResourcesEarned;
+    if (Storage full?) then (true)
+        :StorageFilled;
+    endif
+    end
+else (false)
+    #red:TODO1: level to low;
+    end
 endif
 
 @enduml
