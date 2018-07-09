@@ -12,13 +12,14 @@ public class BuildingConstructionRequestedListener {
 
     @EventListener(BuildingConstructionRequested.class)
     public BuildingConstructionResourcesLeaseRequested execute(BuildingConstructionRequested event) {
-        Building building = getBuilding(event.getBuildingType(), event.getPlanetId());
+        String planetId = event.getPlanetId();
+        Building building = getBuilding(event.getBuildingType(), planetId);
 
         Cost cost = calculateResourcesNeededToLevelUp(building);
-        checkResourcesAvailable(cost);
+        checkResourcesAvailable(cost, planetId);
         ConstructionSite constructionSite = saveConstructionSite(building);
 
-        return createBuildingConstructionResourcesLeaseRequestEvent(cost, constructionSite.getId(), event.getPlanetId());
+        return createBuildingConstructionResourcesLeaseRequestEvent(cost, constructionSite.getId(), planetId);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -33,7 +34,7 @@ public class BuildingConstructionRequestedListener {
         return new Cost(48, 24, 0);
     }
 
-    private void checkResourcesAvailable(Cost cost) {
+    private void checkResourcesAvailable(Cost cost, String planetId) {
         // use resource module to check if resource cost is spendable
         // throws InsufficientResourcesException?
         // rises InsufficientResources event?
