@@ -5,7 +5,7 @@ import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingConstructionFinished;
+import pl.grizwold.ogame.modules.buildings.events.domain.BuildingDeconstructionFinished;
 import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeased;
 import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledEventRequested;
 
@@ -22,7 +22,7 @@ public class BuildingDeconstructionResourcesLeasedListener {
         long deconstructionDuration = calculateDeconstructionDurationInSeconds(constructionSite.getTargetBuildingState());
         LocalDateTime dateTimeOfDeconstructionFinish = convertDurationToExactDateTime(deconstructionDuration);
 
-        return scheduledEvent(dateTimeOfDeconstructionFinish, createConstructionFinishedEvent(event.getResourceLeaseId(), event.getConstructionSiteId()));
+        return scheduledEvent(dateTimeOfDeconstructionFinish, createDeconstructionFinishedEvent(event.getResourceLeaseId(), event.getConstructionSiteId()));
     }
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
@@ -43,8 +43,8 @@ public class BuildingDeconstructionResourcesLeasedListener {
         return LocalDateTime.now().plus(constructionDuration, ChronoUnit.SECONDS);
     }
 
-    private BuildingConstructionFinished createConstructionFinishedEvent(String resourceLeaseId, String constructionSiteId) {
-        return new BuildingConstructionFinished(resourceLeaseId, constructionSiteId);
+    private BuildingDeconstructionFinished createDeconstructionFinishedEvent(String resourceLeaseId, String constructionSiteId) {
+        return new BuildingDeconstructionFinished(resourceLeaseId, constructionSiteId);
     }
 
     private ScheduledEventRequested scheduledEvent(LocalDateTime finish, Event event) {
