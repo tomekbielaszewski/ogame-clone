@@ -5,13 +5,13 @@ import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
 import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeaseRequested;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingDestructionRequested;
+import pl.grizwold.ogame.modules.buildings.events.domain.BuildingDeconstructionRequested;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 
-public class BuildingDestructionRequestedListener {
+public class BuildingDeconstructionRequestedListener {
 
-    @EventListener(BuildingDestructionRequested.class)
-    public BuildingDeconstructionResourcesLeaseRequested execute(BuildingDestructionRequested event) {
+    @EventListener(BuildingDeconstructionRequested.class)
+    public BuildingDeconstructionResourcesLeaseRequested execute(BuildingDeconstructionRequested event) {
         BuildingType buildingType = event.getBuildingType();
         String planetId = event.getPlanetId();
         Building building = getBuilding(buildingType, planetId);
