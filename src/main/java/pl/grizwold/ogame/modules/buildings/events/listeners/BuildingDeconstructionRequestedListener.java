@@ -12,9 +12,8 @@ public class BuildingDeconstructionRequestedListener {
 
     @EventListener(BuildingDeconstructionRequested.class)
     public BuildingDeconstructionResourcesLeaseRequested execute(BuildingDeconstructionRequested event) {
-        BuildingType buildingType = event.getBuildingType();
         String planetId = event.getPlanetId();
-        Building building = getBuilding(buildingType, planetId);
+        Building building = getBuilding(event.getBuildingType(), planetId);
 
         Cost cost = calculateResourcesNeededToDeconstruct(building);
         checkBuildingLevel(building);
