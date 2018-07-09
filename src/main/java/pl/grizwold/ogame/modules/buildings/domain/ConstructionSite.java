@@ -5,5 +5,5 @@ import lombok.Value;
 @Value
 public class ConstructionSite {
     private String id;
-    private Building building;
+    private Building targetBuildingState;
 }

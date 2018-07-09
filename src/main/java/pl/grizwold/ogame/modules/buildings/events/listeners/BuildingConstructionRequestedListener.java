@@ -13,9 +13,11 @@ public class BuildingConstructionRequestedListener {
     @EventListener(BuildingConstructionRequested.class)
     public BuildingConstructionResourcesLeaseRequested execute(BuildingConstructionRequested event) {
         Building building = getBuilding(event.getBuildingType(), event.getPlanetId());
+
         Cost cost = calculateResourcesNeededToLevelUp(building);
         checkResourcesAvailable(cost);
         ConstructionSite constructionSite = saveConstructionSite(building);
+
         return createBuildingConstructionResourcesLeaseRequestEvent(cost, constructionSite.getId(), event.getPlanetId());
     }
 
@@ -39,7 +41,8 @@ public class BuildingConstructionRequestedListener {
 
     private ConstructionSite saveConstructionSite(Building building) {
         // save construction site with building data
-        return new ConstructionSite("DB provided ID", building);
+        Building targetBuildingState = new Building(building.getLevel() + 1, building.getType(), building.getOwner(), building.getPlanetId());
+        return new ConstructionSite("DB provided ID", targetBuildingState);
     }
 
     private BuildingConstructionResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Cost cost, String constructionSiteId, String planetId) {

@@ -18,9 +18,9 @@ public class BuildingConstructionResourcesLeasedListener {
     public ScheduledEventRequested execute(BuildingConstructionResourcesLeased event) {
         ConstructionSite constructionSite = getConstructionSite(event.getConstructionSiteId());
         attachResourceLeaseToConstructionSite(event.getResourceLeaseId(), constructionSite);
-        long constructionDuration = calculateConstructionDurationInSeconds(constructionSite.getBuilding());
+        long constructionDuration = calculateConstructionDurationInSeconds(constructionSite.getTargetBuildingState());
         LocalDateTime dateTimeOfConstructionFinish = convertDurationToExactDateTime(constructionDuration);
-        return scheduledEvent(dateTimeOfConstructionFinish, createConstructionFinishedEvent(event, constructionSite.getBuilding()));
+        return scheduledEvent(dateTimeOfConstructionFinish, createConstructionFinishedEvent(event, constructionSite.getTargetBuildingState()));
     }
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
