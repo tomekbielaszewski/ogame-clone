@@ -11,7 +11,6 @@ public class BuildingDeconstructionResourcesLeaseRequestedListener {
     @EventListener(BuildingDeconstructionResourcesLeaseRequested.class)
     public BuildingDeconstructionResourcesLeased execute(BuildingDeconstructionResourcesLeaseRequested event) {
         Cost cost = event.getCost();
-        event.getConstructionSiteId();
         String planetId = event.getPlanetId();
 
         checkResourcesAvailable(cost, planetId);
