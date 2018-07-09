@@ -31,8 +31,15 @@ if (Building lvl > 0?) then (true)
                     end
                 endif
             split again
-                :BuildingDeconstructed;
-                detach
+                if (Construction site still exist?) then (true)
+                    :BuildingDeconstructed;
+                    detach
+                else (false)
+                    #red:TODO: construction site already gone
+                    deconstruction canceled?
+                    event fired multiple times?;
+                    end
+                endif
             end split
         end split
         else
