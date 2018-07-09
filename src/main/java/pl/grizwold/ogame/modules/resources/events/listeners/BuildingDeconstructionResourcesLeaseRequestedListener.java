@@ -1,11 +1,10 @@
 package pl.grizwold.ogame.modules.resources.events.listeners;
 
 import org.springframework.context.event.EventListener;
-import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
-import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeaseRequested;
-import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeased;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 import pl.grizwold.ogame.modules.resources.domain.ResourcesLease;
+import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeaseRequested;
+import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeased;
 
 public class BuildingDeconstructionResourcesLeaseRequestedListener {
 
@@ -18,7 +17,7 @@ public class BuildingDeconstructionResourcesLeaseRequestedListener {
         checkResourcesAvailable(cost, planetId);
         ResourcesLease lease = makeResourcesLease(cost, planetId);
 
-        return createBuildingDeconstructionResourcesLeasedEvent(lease, event.getConstructionSiteId()  , planetId);
+        return createBuildingDeconstructionResourcesLeasedEvent(lease, event.getConstructionSiteId(), planetId);
     }
 
     private void checkResourcesAvailable(Cost cost, String planetId) {
