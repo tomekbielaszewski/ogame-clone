@@ -2,9 +2,9 @@ package pl.grizwold.ogame.modules.buildings.events.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.common.domain.Event;
+import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
 import pl.grizwold.ogame.modules.buildings.events.domain.BuildingConstructionFinished;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
-import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.events.domain.BuildingLeveledUp;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourceLeaseUsed;
 
@@ -15,11 +15,20 @@ public class BuildingConstructionFinishedListener {
 
     @EventListener(BuildingConstructionFinished.class)
     public List<Event> execute(BuildingConstructionFinished event) {
+        ConstructionSite constructionSite = getConstructionSite(event.getConstructionSiteId());
+
         checkResourcesLease(event.getResourcesLeaseId());
         checkConstructionSite(event.getConstructionSiteId());
-        Event destroyLease = destroyResourceLease(event.getResourcesLeaseId());
-        Event buildingLeveledUp = incrementBuildingLevel(event.getBuildingType(), event.getPlanetId());
+        saveBuilding(constructionSite.getTargetBuildingState());
+
+        Event destroyLease = resourceLeaseUsed(event.getResourcesLeaseId());
+        Event buildingLeveledUp = createBuildingLeveledUpEvent(constructionSite.getTargetBuildingState());
+
         return Arrays.asList(destroyLease, buildingLeveledUp);
+    }
+
+    private ConstructionSite getConstructionSite(String constructionSiteId) {
+        return null;
     }
 
     private void checkResourcesLease(String resourcesLeaseId) {
@@ -30,15 +39,12 @@ public class BuildingConstructionFinishedListener {
         // validate existence of construction site (could be removed/canceled?)
     }
 
-    private Event destroyResourceLease(String resourcesLeaseId) {
+    private Event resourceLeaseUsed(String resourcesLeaseId) {
         return createDestroyResourceLeaseEvent(resourcesLeaseId);
     }
 
-    private Event incrementBuildingLevel(BuildingType buildingType, String planetId) {
-        // get building from module db
-        // increment building level
-        // save building
-        return createBuildingLeveledUpEvent(null);
+    private void saveBuilding(Building building) {
+        // save changed building in modules DB
     }
 
     private BuildingLeveledUp createBuildingLeveledUpEvent(Building leveledUpBuilding) {
