@@ -21,7 +21,7 @@ public class BuildingConstructionFinishedListener {
         checkConstructionSite(event.getConstructionSiteId());
         saveBuilding(constructionSite.getTargetBuildingState());
 
-        Event destroyLease = resourceLeaseUsed(event.getResourcesLeaseId());
+        Event destroyLease = createResourcesLeaseUsedEvent(event.getResourcesLeaseId());
         Event buildingLeveledUp = createBuildingLeveledUpEvent(constructionSite.getTargetBuildingState());
 
         return Arrays.asList(destroyLease, buildingLeveledUp);
@@ -39,7 +39,7 @@ public class BuildingConstructionFinishedListener {
         // validate existence of construction site (could be removed/canceled?)
     }
 
-    private Event resourceLeaseUsed(String resourcesLeaseId) {
+    private Event createResourcesLeaseUsedEvent(String resourcesLeaseId) {
         return createDestroyResourceLeaseEvent(resourcesLeaseId);
     }
 
@@ -47,11 +47,11 @@ public class BuildingConstructionFinishedListener {
         // save changed building in modules DB
     }
 
-    private BuildingLeveledUp createBuildingLeveledUpEvent(Building leveledUpBuilding) {
-        return null;
-    }
-
     private ResourceLeaseUsed createDestroyResourceLeaseEvent(String resourcesLeaseId) {
         return new ResourceLeaseUsed(resourcesLeaseId);
+    }
+
+    private BuildingLeveledUp createBuildingLeveledUpEvent(Building leveledUpBuilding) {
+        return null;
     }
 }
