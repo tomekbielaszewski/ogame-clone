@@ -1,11 +1,11 @@
-package pl.grizwold.ogame.modules.buildings.events.listeners;
+package pl.grizwold.ogame.modules.buildings.events.destruction.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingDeconstructed;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingDeconstructionFinished;
+import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructed;
+import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructionFinished;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourceLeaseUsed;
 
 import java.util.Arrays;

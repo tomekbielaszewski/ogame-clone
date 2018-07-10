@@ -1,4 +1,4 @@
-package pl.grizwold.ogame.modules.buildings.events.domain;
+package pl.grizwold.ogame.modules.buildings.events.construction.domain;
 
 import lombok.Value;
 import pl.grizwold.ogame.common.domain.Event;

@@ -1,10 +1,10 @@
-package pl.grizwold.ogame.modules.buildings.events.listeners;
+package pl.grizwold.ogame.modules.buildings.events.construction.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingConstructionRequested;
+import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructionRequested;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 import pl.grizwold.ogame.modules.resources.events.domain.BuildingConstructionResourcesLeaseRequested;
 

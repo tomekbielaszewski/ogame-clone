@@ -1,11 +1,11 @@
-package pl.grizwold.ogame.modules.buildings.events.listeners;
+package pl.grizwold.ogame.modules.buildings.events.destruction.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
 import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeaseRequested;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingDeconstructionRequested;
+import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructionRequested;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 
 public class BuildingDeconstructionRequestedListener {

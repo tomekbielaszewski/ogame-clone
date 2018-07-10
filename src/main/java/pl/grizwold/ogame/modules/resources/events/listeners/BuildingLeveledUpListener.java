@@ -2,7 +2,7 @@ package pl.grizwold.ogame.modules.resources.events.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
-import pl.grizwold.ogame.modules.buildings.events.domain.BuildingLeveledUp;
+import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingLeveledUp;
 import pl.grizwold.ogame.modules.resources.domain.ResourceExtractionRate;
 
 public class BuildingLeveledUpListener {
