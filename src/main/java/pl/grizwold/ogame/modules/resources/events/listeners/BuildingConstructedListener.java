@@ -5,7 +5,7 @@ import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructed;
 import pl.grizwold.ogame.modules.resources.domain.ResourceExtractionRate;
 
-public class BuildingLeveledUpListener {
+public class BuildingConstructedListener {
 
     @EventListener(BuildingConstructed.class)
     public void execute(BuildingConstructed event) {
