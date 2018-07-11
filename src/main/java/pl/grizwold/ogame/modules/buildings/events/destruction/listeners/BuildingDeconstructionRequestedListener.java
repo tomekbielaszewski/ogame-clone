@@ -22,7 +22,7 @@ public class BuildingDeconstructionRequestedListener {
         checkResourcesAvailable(cost, planetId);
         saveConstructionSite(event.getCorrelationToken(), building);
 
-        return createBuildingDeconstructionResourcesLeaseRequestedEvent(event, planetId, cost);
+        return createResourcesLeaseRequestedEvent(event, planetId, cost);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -49,7 +49,7 @@ public class BuildingDeconstructionRequestedListener {
         new ConstructionSite(correlationToken, targetBuildingState, ConstructionSiteType.DECONSTRUCTION);
     }
 
-    private ResourcesLeaseRequested createBuildingDeconstructionResourcesLeaseRequestedEvent(Event source, String planetId, Cost cost) {
+    private ResourcesLeaseRequested createResourcesLeaseRequestedEvent(Event source, String planetId, Cost cost) {
         return new ResourcesLeaseRequested(source, cost, planetId);
     }
 }

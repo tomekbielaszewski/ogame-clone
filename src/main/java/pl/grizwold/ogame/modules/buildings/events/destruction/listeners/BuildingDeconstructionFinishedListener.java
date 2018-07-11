@@ -21,10 +21,10 @@ public class BuildingDeconstructionFinishedListener {
         checkConstructionSite(event.getCorrelationToken());
         saveBuilding(constructionSite.getTargetBuildingState());
 
-        Event resourcesLeaseUsedRequest = createResourcesLeaseUsedEvent(event);
+        Event resourcesLeaseUsed = createResourcesLeaseUsedEvent(event);
         Event buildingDeconstructed = createBuildingDeconstructedEvent(event, constructionSite.getTargetBuildingState());
 
-        return Arrays.asList(resourcesLeaseUsedRequest, buildingDeconstructed);
+        return Arrays.asList(resourcesLeaseUsed, buildingDeconstructed);
     }
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
@@ -38,6 +38,7 @@ public class BuildingDeconstructionFinishedListener {
 
     private void checkConstructionSite(String constructionSiteId) {
         // validate existence of construction site
+        // validate type of construction site to be DECONSTRUCTION
     }
 
     private void saveBuilding(Building targetBuildingState) {
