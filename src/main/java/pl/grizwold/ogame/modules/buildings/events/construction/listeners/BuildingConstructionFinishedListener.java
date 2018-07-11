@@ -15,16 +15,16 @@ public class BuildingConstructionFinishedListener {
 
     @EventListener(BuildingConstructionFinished.class)
     public List<Event> execute(BuildingConstructionFinished event) {
-        ConstructionSite constructionSite = getConstructionSite(event.getConstructionSiteId());
+        ConstructionSite constructionSite = getConstructionSite(event.getCorrelationToken());
 
-        checkResourcesLease(event.getResourcesLeaseId());
-        checkConstructionSite(event.getConstructionSiteId());
+        checkResourcesLease(event.getCorrelationToken());
+        checkConstructionSite(event.getCorrelationToken());
         saveBuilding(constructionSite.getTargetBuildingState());
 
-        Event destroyLease = createResourcesLeaseUsedEvent(event, event.getResourcesLeaseId());
-        Event buildingLeveledUp = createBuildingConstructedEvent(constructionSite.getTargetBuildingState());
+        Event destroyLease = createResourcesLeaseUsedEvent(event);
+        Event buildingConstructed = createBuildingConstructedEvent(constructionSite.getTargetBuildingState());
 
-        return Arrays.asList(destroyLease, buildingLeveledUp);
+        return Arrays.asList(destroyLease, buildingConstructed);
     }
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
@@ -39,16 +39,16 @@ public class BuildingConstructionFinishedListener {
         // validate existence of construction site (could be removed/canceled?)
     }
 
-    private Event createResourcesLeaseUsedEvent(Event source, String resourcesLeaseId) {
-        return createDestroyResourceLeaseEvent(source, resourcesLeaseId);
+    private Event createResourcesLeaseUsedEvent(Event source) {
+        return createDestroyResourceLeaseEvent(source);
     }
 
     private void saveBuilding(Building building) {
         // save changed building in modules DB
     }
 
-    private ResourcesLeaseUsed createDestroyResourceLeaseEvent(Event source, String resourcesLeaseId) {
-        return new ResourcesLeaseUsed(source, resourcesLeaseId);
+    private ResourcesLeaseUsed createDestroyResourceLeaseEvent(Event source) {
+        return new ResourcesLeaseUsed(source);
     }
 
     private BuildingConstructed createBuildingConstructedEvent(Building leveledUpBuilding) {

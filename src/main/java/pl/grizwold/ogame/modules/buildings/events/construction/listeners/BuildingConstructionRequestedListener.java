@@ -5,22 +5,23 @@ import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
+import pl.grizwold.ogame.modules.buildings.domain.ConstructionSiteType;
 import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructionRequested;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
-import pl.grizwold.ogame.modules.resources.events.domain.BuildingConstructionResourcesLeaseRequested;
+import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeaseRequested;
 
 public class BuildingConstructionRequestedListener {
 
     @EventListener(BuildingConstructionRequested.class)
-    public BuildingConstructionResourcesLeaseRequested execute(BuildingConstructionRequested event) {
+    public ResourcesLeaseRequested execute(BuildingConstructionRequested event) {
         String planetId = event.getPlanetId();
         Building building = getBuilding(event.getBuildingType(), planetId);
 
         Cost cost = calculateResourcesNeededToLevelUp(building);
         checkResourcesAvailable(cost, planetId);
-        ConstructionSite constructionSite = saveConstructionSite(building);
+        saveConstructionSite(event.getCorrelationToken(), building);
 
-        return createBuildingConstructionResourcesLeaseRequestEvent(event, cost, constructionSite.getId(), planetId);
+        return createBuildingConstructionResourcesLeaseRequestEvent(event, cost, planetId);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -41,13 +42,13 @@ public class BuildingConstructionRequestedListener {
         // rises InsufficientResources event?
     }
 
-    private ConstructionSite saveConstructionSite(Building building) {
+    private void saveConstructionSite(String correlationToken, Building building) {
         // save construction site with building data
         Building targetBuildingState = new Building(building.getLevel() + 1, building.getType(), building.getOwner(), building.getPlanetId());
-        return new ConstructionSite("DB provided ID", targetBuildingState);
+        new ConstructionSite(correlationToken, targetBuildingState, ConstructionSiteType.CONSTRUCTION);
     }
 
-    private BuildingConstructionResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Event source, Cost cost, String constructionSiteId, String planetId) {
-        return new BuildingConstructionResourcesLeaseRequested(source, constructionSiteId, cost, planetId);
+    private ResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Event source, Cost cost, String planetId) {
+        return new ResourcesLeaseRequested(source, cost, planetId);
     }
 }

@@ -15,13 +15,13 @@ public class BuildingDeconstructionFinishedListener {
 
     @EventListener(BuildingDeconstructionFinished.class)
     public List<Event> execute(BuildingDeconstructionFinished event) {
-        ConstructionSite constructionSite = getConstructionSite(event.getConstructionSiteId());
+        ConstructionSite constructionSite = getConstructionSite(event.getCorrelationToken());
 
-        checkResourcesLease(event.getResourcesLeaseId());
-        checkConstructionSite(event.getConstructionSiteId());
+        checkResourcesLease(event.getCorrelationToken());
+        checkConstructionSite(event.getCorrelationToken());
         saveBuilding(constructionSite.getTargetBuildingState());
 
-        Event resourcesLeaseUsedRequest = createResourcesLeaseUsedEvent(event, event.getResourcesLeaseId());
+        Event resourcesLeaseUsedRequest = createResourcesLeaseUsedEvent(event);
         Event buildingDeconstructed = createBuildingDeconstructedEvent(event, constructionSite.getTargetBuildingState());
 
         return Arrays.asList(resourcesLeaseUsedRequest, buildingDeconstructed);
@@ -44,8 +44,8 @@ public class BuildingDeconstructionFinishedListener {
 
     }
 
-    private Event createResourcesLeaseUsedEvent(Event source, String resourcesLeaseId) {
-        return new ResourcesLeaseUsed(source, resourcesLeaseId);
+    private Event createResourcesLeaseUsedEvent(Event source) {
+        return new ResourcesLeaseUsed(source);
     }
 
     private Event createBuildingDeconstructedEvent(Event source, Building targetBuildingState) {

@@ -5,23 +5,24 @@ import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
-import pl.grizwold.ogame.modules.resources.events.domain.BuildingDeconstructionResourcesLeaseRequested;
+import pl.grizwold.ogame.modules.buildings.domain.ConstructionSiteType;
 import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructionRequested;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
+import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeaseRequested;
 
 public class BuildingDeconstructionRequestedListener {
 
     @EventListener(BuildingDeconstructionRequested.class)
-    public BuildingDeconstructionResourcesLeaseRequested execute(BuildingDeconstructionRequested event) {
+    public ResourcesLeaseRequested execute(BuildingDeconstructionRequested event) {
         String planetId = event.getPlanetId();
         Building building = getBuilding(event.getBuildingType(), planetId);
 
         Cost cost = calculateResourcesNeededToDeconstruct(building);
         checkBuildingLevel(building);
         checkResourcesAvailable(cost, planetId);
-        ConstructionSite constructionSite = saveConstructionSite(building);
+        saveConstructionSite(event.getCorrelationToken(), building);
 
-        return createBuildingDeconstructionResourcesLeaseRequestedEvent(event, planetId, cost, constructionSite);
+        return createBuildingDeconstructionResourcesLeaseRequestedEvent(event, planetId, cost);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -42,13 +43,13 @@ public class BuildingDeconstructionRequestedListener {
         // validate if there are enough resources on planet
     }
 
-    private ConstructionSite saveConstructionSite(Building building) {
+    private void saveConstructionSite(String correlationToken, Building building) {
         // save construction site with target building data (how the building will be after (de)construction)
         Building targetBuildingState = new Building(building.getLevel() - 1, building.getType(), building.getOwner(), building.getPlanetId());
-        return new ConstructionSite("DB provided ID", targetBuildingState);
+        new ConstructionSite(correlationToken, targetBuildingState, ConstructionSiteType.DECONSTRUCTION);
     }
 
-    private BuildingDeconstructionResourcesLeaseRequested createBuildingDeconstructionResourcesLeaseRequestedEvent(Event source, String planetId, Cost cost, ConstructionSite constructionSite) {
-        return new BuildingDeconstructionResourcesLeaseRequested(source, cost, constructionSite.getId(), planetId);
+    private ResourcesLeaseRequested createBuildingDeconstructionResourcesLeaseRequestedEvent(Event source, String planetId, Cost cost) {
+        return new ResourcesLeaseRequested(source, cost, planetId);
     }
 }

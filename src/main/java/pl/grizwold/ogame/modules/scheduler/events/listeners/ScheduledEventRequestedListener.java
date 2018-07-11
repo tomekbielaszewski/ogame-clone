@@ -6,7 +6,7 @@ import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledEventRequested
 
 import java.time.LocalDateTime;
 
-public class ScheduledBuildingConstructionFinishRequestListener {
+public class ScheduledEventRequestedListener {
 
     @EventListener(ScheduledEventRequested.class)
     public void execute(ScheduledEventRequested event) {
