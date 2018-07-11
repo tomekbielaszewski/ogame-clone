@@ -6,4 +6,5 @@ import lombok.Value;
 public class ConstructionSite {
     private String id;
     private Building targetBuildingState;
+    private ConstructionSiteType type;
 }
