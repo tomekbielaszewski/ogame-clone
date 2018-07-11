@@ -8,10 +8,10 @@ import pl.grizwold.ogame.common.domain.Event;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class ResourceLeaseUsed extends Event {
+public class ResourcesLeaseUsed extends Event {
     private String resourcesLeaseId;
 
-    public ResourceLeaseUsed(Event event, String resourcesLeaseId) {
+    public ResourcesLeaseUsed(Event event, String resourcesLeaseId) {
         super(event);
         this.resourcesLeaseId = resourcesLeaseId;
     }

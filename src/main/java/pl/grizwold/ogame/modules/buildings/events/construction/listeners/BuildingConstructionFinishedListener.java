@@ -6,7 +6,7 @@ import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
 import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructed;
 import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructionFinished;
-import pl.grizwold.ogame.modules.resources.events.domain.ResourceLeaseUsed;
+import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeaseUsed;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,8 +47,8 @@ public class BuildingConstructionFinishedListener {
         // save changed building in modules DB
     }
 
-    private ResourceLeaseUsed createDestroyResourceLeaseEvent(Event source, String resourcesLeaseId) {
-        return new ResourceLeaseUsed(source, resourcesLeaseId);
+    private ResourcesLeaseUsed createDestroyResourceLeaseEvent(Event source, String resourcesLeaseId) {
+        return new ResourcesLeaseUsed(source, resourcesLeaseId);
     }
 
     private BuildingConstructed createBuildingConstructedEvent(Building leveledUpBuilding) {

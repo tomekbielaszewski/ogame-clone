@@ -6,7 +6,7 @@ import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
 import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructed;
 import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructionFinished;
-import pl.grizwold.ogame.modules.resources.events.domain.ResourceLeaseUsed;
+import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeaseUsed;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +45,7 @@ public class BuildingDeconstructionFinishedListener {
     }
 
     private Event createResourcesLeaseUsedEvent(Event source, String resourcesLeaseId) {
-        return new ResourceLeaseUsed(source, resourcesLeaseId);
+        return new ResourcesLeaseUsed(source, resourcesLeaseId);
     }
 
     private Event createBuildingDeconstructedEvent(Event source, Building targetBuildingState) {
