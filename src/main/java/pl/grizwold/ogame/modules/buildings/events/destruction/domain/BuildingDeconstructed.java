@@ -10,7 +10,7 @@ import pl.grizwold.ogame.modules.buildings.domain.Building;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class BuildingDeconstructed extends Event {
-    private Building building; // you should not send domain data. Minimize amount of data in event
+    private Building building;
 
     public BuildingDeconstructed(Event event, Building building) {
         super(event);
