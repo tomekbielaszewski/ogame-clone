@@ -15,8 +15,8 @@ public class BuildingConstructionRequested extends Event {
     private final BuildingType buildingType;
     private final String planetId;
 
-    public BuildingConstructionRequested(String ownerId, UUID uuid, BuildingType buildingType, String planetId) {
-        super(ownerId, uuid);
+    public BuildingConstructionRequested(String ownerId, String correlationToken, BuildingType buildingType, String planetId) {
+        super(ownerId, correlationToken);
         this.buildingType = buildingType;
         this.planetId = planetId;
     }

@@ -1,4 +1,4 @@
-package pl.grizwold.ogame.modules.buildings.events.construction.domain;
+package pl.grizwold.ogame.modules.resources.events.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,9 +8,8 @@ import pl.grizwold.ogame.common.domain.Event;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class BuildingConstructionFinished extends Event {
-
-    public BuildingConstructionFinished(Event event) {
+public class ResourcesLeased extends Event {
+    public ResourcesLeased(Event event) {
         super(event);
     }
 }

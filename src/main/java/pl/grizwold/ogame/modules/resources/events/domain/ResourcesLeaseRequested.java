@@ -9,14 +9,12 @@ import pl.grizwold.ogame.modules.resources.domain.Cost;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class BuildingConstructionResourcesLeaseRequested extends Event {
-    private String constructionSiteId;
+public class ResourcesLeaseRequested extends Event {
     private Cost cost;
     private String planetId;
 
-    public BuildingConstructionResourcesLeaseRequested(Event event, String constructionSiteId, Cost cost, String planetId) {
+    public ResourcesLeaseRequested(Event event, Cost cost, String planetId) {
         super(event);
-        this.constructionSiteId = constructionSiteId;
         this.cost = cost;
         this.planetId = planetId;
     }

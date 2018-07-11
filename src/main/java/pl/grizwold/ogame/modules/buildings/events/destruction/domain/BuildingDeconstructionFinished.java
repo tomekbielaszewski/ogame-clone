@@ -9,12 +9,8 @@ import pl.grizwold.ogame.common.domain.Event;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class BuildingDeconstructionFinished extends Event {
-    private String resourcesLeaseId;
-    private String constructionSiteId;
 
-    public BuildingDeconstructionFinished(Event event, String resourcesLeaseId, String constructionSiteId) {
+    public BuildingDeconstructionFinished(Event event) {
         super(event);
-        this.resourcesLeaseId = resourcesLeaseId;
-        this.constructionSiteId = constructionSiteId;
     }
 }

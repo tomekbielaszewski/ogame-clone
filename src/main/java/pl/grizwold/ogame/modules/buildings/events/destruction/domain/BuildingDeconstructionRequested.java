@@ -13,8 +13,8 @@ public class BuildingDeconstructionRequested extends Event {
     private String planetId;
     private BuildingType buildingType;
 
-    public BuildingDeconstructionRequested(Event event, String planetId, BuildingType buildingType) {
-        super(event);
+    public BuildingDeconstructionRequested(String ownerId, String correlationToken, String planetId, BuildingType buildingType) {
+        super(ownerId, correlationToken);
         this.planetId = planetId;
         this.buildingType = buildingType;
     }
