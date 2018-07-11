@@ -11,11 +11,9 @@ import pl.grizwold.ogame.modules.buildings.domain.Building;
 @EqualsAndHashCode(callSuper = true)
 public class BuildingConstructed extends Event {
     private final Building building;
-    private final String planetId;
 
-    public BuildingConstructed(Event event, Building building, String planetId) {
+    public BuildingConstructed(Event event, Building building) {
         super(event);
         this.building = building;
-        this.planetId = planetId;
     }
 }
