@@ -22,7 +22,7 @@ public class BuildingConstructionFinishedListener {
         saveBuilding(constructionSite.getTargetBuildingState());
 
         Event destroyLease = createResourcesLeaseUsedEvent(event);
-        Event buildingConstructed = createBuildingConstructedEvent(constructionSite.getTargetBuildingState());
+        Event buildingConstructed = createBuildingConstructedEvent(event, constructionSite.getTargetBuildingState());
 
         return Arrays.asList(destroyLease, buildingConstructed);
     }
@@ -37,6 +37,7 @@ public class BuildingConstructionFinishedListener {
 
     private void checkConstructionSite(String constructionSiteId) {
         // validate existence of construction site (could be removed/canceled?)
+        // validate type of construction site
     }
 
     private Event createResourcesLeaseUsedEvent(Event source) {
@@ -51,7 +52,7 @@ public class BuildingConstructionFinishedListener {
         return new ResourcesLeaseUsed(source);
     }
 
-    private BuildingConstructed createBuildingConstructedEvent(Building leveledUpBuilding) {
-        return null;
+    private BuildingConstructed createBuildingConstructedEvent(Event source, Building constructedBuilding) {
+        return new BuildingConstructed(source, constructedBuilding);
     }
 }
