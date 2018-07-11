@@ -1,6 +1,7 @@
 package pl.grizwold.ogame.modules.buildings.events.construction.listeners;
 
 import org.springframework.context.event.EventListener;
+import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
@@ -19,7 +20,7 @@ public class BuildingConstructionRequestedListener {
         checkResourcesAvailable(cost, planetId);
         ConstructionSite constructionSite = saveConstructionSite(building);
 
-        return createBuildingConstructionResourcesLeaseRequestEvent(cost, constructionSite.getId(), planetId);
+        return createBuildingConstructionResourcesLeaseRequestEvent(event, cost, constructionSite.getId(), planetId);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -46,7 +47,7 @@ public class BuildingConstructionRequestedListener {
         return new ConstructionSite("DB provided ID", targetBuildingState);
     }
 
-    private BuildingConstructionResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Cost cost, String constructionSiteId, String planetId) {
-        return new BuildingConstructionResourcesLeaseRequested(constructionSiteId, cost, planetId);
+    private BuildingConstructionResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Event source, Cost cost, String constructionSiteId, String planetId) {
+        return new BuildingConstructionResourcesLeaseRequested(source, constructionSiteId, cost, planetId);
     }
 }

@@ -1,6 +1,7 @@
 package pl.grizwold.ogame.modules.buildings.events.destruction.listeners;
 
 import org.springframework.context.event.EventListener;
+import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
@@ -20,7 +21,7 @@ public class BuildingDeconstructionRequestedListener {
         checkResourcesAvailable(cost, planetId);
         ConstructionSite constructionSite = saveConstructionSite(building);
 
-        return createBuildingDeconstructionResourcesLeaseRequestedEvent(planetId, cost, constructionSite);
+        return createBuildingDeconstructionResourcesLeaseRequestedEvent(event, planetId, cost, constructionSite);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -47,7 +48,7 @@ public class BuildingDeconstructionRequestedListener {
         return new ConstructionSite("DB provided ID", targetBuildingState);
     }
 
-    private BuildingDeconstructionResourcesLeaseRequested createBuildingDeconstructionResourcesLeaseRequestedEvent(String planetId, Cost cost, ConstructionSite constructionSite) {
-        return new BuildingDeconstructionResourcesLeaseRequested(cost, constructionSite.getId(), planetId);
+    private BuildingDeconstructionResourcesLeaseRequested createBuildingDeconstructionResourcesLeaseRequestedEvent(Event source, String planetId, Cost cost, ConstructionSite constructionSite) {
+        return new BuildingDeconstructionResourcesLeaseRequested(source, cost, constructionSite.getId(), planetId);
     }
 }

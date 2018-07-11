@@ -22,7 +22,7 @@ public class BuildingDeconstructionResourcesLeasedListener {
         long deconstructionDuration = calculateDeconstructionDurationInSeconds(constructionSite.getTargetBuildingState());
         LocalDateTime dateTimeOfDeconstructionFinish = convertDurationToExactDateTime(deconstructionDuration);
 
-        return scheduledEvent(dateTimeOfDeconstructionFinish, createDeconstructionFinishedEvent(event.getResourceLeaseId(), event.getConstructionSiteId()));
+        return scheduledEvent(event, dateTimeOfDeconstructionFinish, createDeconstructionFinishedEvent(event, event.getResourceLeaseId(), event.getConstructionSiteId()));
     }
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
@@ -43,11 +43,11 @@ public class BuildingDeconstructionResourcesLeasedListener {
         return LocalDateTime.now().plus(constructionDuration, ChronoUnit.SECONDS);
     }
 
-    private BuildingDeconstructionFinished createDeconstructionFinishedEvent(String resourceLeaseId, String constructionSiteId) {
-        return new BuildingDeconstructionFinished(resourceLeaseId, constructionSiteId);
+    private BuildingDeconstructionFinished createDeconstructionFinishedEvent(Event source, String resourceLeaseId, String constructionSiteId) {
+        return new BuildingDeconstructionFinished(source, resourceLeaseId, constructionSiteId);
     }
 
-    private ScheduledEventRequested scheduledEvent(LocalDateTime finish, Event event) {
-        return new ScheduledEventRequested(finish, event);
+    private ScheduledEventRequested scheduledEvent(Event source, LocalDateTime finish, Event event) {
+        return new ScheduledEventRequested(source, finish, event);
     }
 }

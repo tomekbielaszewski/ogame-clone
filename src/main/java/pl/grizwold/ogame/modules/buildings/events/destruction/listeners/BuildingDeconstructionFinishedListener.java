@@ -21,8 +21,8 @@ public class BuildingDeconstructionFinishedListener {
         checkConstructionSite(event.getConstructionSiteId());
         saveBuilding(constructionSite.getTargetBuildingState());
 
-        Event resourcesLeaseUsedRequest = createResourcesLeaseUsedEvent(event.getResourcesLeaseId());
-        Event buildingDeconstructed = createBuildingDeconstructedEvent(constructionSite.getTargetBuildingState());
+        Event resourcesLeaseUsedRequest = createResourcesLeaseUsedEvent(event, event.getResourcesLeaseId());
+        Event buildingDeconstructed = createBuildingDeconstructedEvent(event, constructionSite.getTargetBuildingState());
 
         return Arrays.asList(resourcesLeaseUsedRequest, buildingDeconstructed);
     }
@@ -44,11 +44,11 @@ public class BuildingDeconstructionFinishedListener {
 
     }
 
-    private Event createResourcesLeaseUsedEvent(String resourcesLeaseId) {
-        return new ResourceLeaseUsed(resourcesLeaseId);
+    private Event createResourcesLeaseUsedEvent(Event source, String resourcesLeaseId) {
+        return new ResourceLeaseUsed(source, resourcesLeaseId);
     }
 
-    private Event createBuildingDeconstructedEvent(Building targetBuildingState) {
-        return new BuildingDeconstructed(targetBuildingState);
+    private Event createBuildingDeconstructedEvent(Event source, Building targetBuildingState) {
+        return new BuildingDeconstructed(source, targetBuildingState);
     }
 }

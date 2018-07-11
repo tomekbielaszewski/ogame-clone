@@ -2,13 +2,13 @@ package pl.grizwold.ogame.modules.resources.events.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
-import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingLeveledUp;
+import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructed;
 import pl.grizwold.ogame.modules.resources.domain.ResourceExtractionRate;
 
 public class BuildingLeveledUpListener {
 
-    @EventListener(BuildingLeveledUp.class)
-    public void execute(BuildingLeveledUp event) {
+    @EventListener(BuildingConstructed.class)
+    public void execute(BuildingConstructed event) {
         if(isResourceExtractionUpgraded(event.getBuilding())) {
             ResourceExtractionRate extractionRate = recalculateResourceExtractionRate(event.getBuilding());
             saveResourceExtractionRate(extractionRate);

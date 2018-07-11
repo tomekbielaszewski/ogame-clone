@@ -2,10 +2,10 @@ package pl.grizwold.ogame.modules.buildings.events.construction.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.common.domain.Event;
-import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
-import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructionFinished;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
-import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingLeveledUp;
+import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
+import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructed;
+import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructionFinished;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourceLeaseUsed;
 
 import java.util.Arrays;
@@ -21,8 +21,8 @@ public class BuildingConstructionFinishedListener {
         checkConstructionSite(event.getConstructionSiteId());
         saveBuilding(constructionSite.getTargetBuildingState());
 
-        Event destroyLease = createResourcesLeaseUsedEvent(event.getResourcesLeaseId());
-        Event buildingLeveledUp = createBuildingLeveledUpEvent(constructionSite.getTargetBuildingState());
+        Event destroyLease = createResourcesLeaseUsedEvent(event, event.getResourcesLeaseId());
+        Event buildingLeveledUp = createBuildingConstructedEvent(constructionSite.getTargetBuildingState());
 
         return Arrays.asList(destroyLease, buildingLeveledUp);
     }
@@ -39,19 +39,19 @@ public class BuildingConstructionFinishedListener {
         // validate existence of construction site (could be removed/canceled?)
     }
 
-    private Event createResourcesLeaseUsedEvent(String resourcesLeaseId) {
-        return createDestroyResourceLeaseEvent(resourcesLeaseId);
+    private Event createResourcesLeaseUsedEvent(Event source, String resourcesLeaseId) {
+        return createDestroyResourceLeaseEvent(source, resourcesLeaseId);
     }
 
     private void saveBuilding(Building building) {
         // save changed building in modules DB
     }
 
-    private ResourceLeaseUsed createDestroyResourceLeaseEvent(String resourcesLeaseId) {
-        return new ResourceLeaseUsed(resourcesLeaseId);
+    private ResourceLeaseUsed createDestroyResourceLeaseEvent(Event source, String resourcesLeaseId) {
+        return new ResourceLeaseUsed(source, resourcesLeaseId);
     }
 
-    private BuildingLeveledUp createBuildingLeveledUpEvent(Building leveledUpBuilding) {
+    private BuildingConstructed createBuildingConstructedEvent(Building leveledUpBuilding) {
         return null;
     }
 }

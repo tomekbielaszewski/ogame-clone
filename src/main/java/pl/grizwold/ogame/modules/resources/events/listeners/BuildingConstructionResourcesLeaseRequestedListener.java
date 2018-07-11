@@ -1,6 +1,7 @@
 package pl.grizwold.ogame.modules.resources.events.listeners;
 
 import org.springframework.context.event.EventListener;
+import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 import pl.grizwold.ogame.modules.resources.domain.ResourcesLease;
 import pl.grizwold.ogame.modules.resources.events.domain.BuildingConstructionResourcesLeaseRequested;
@@ -12,7 +13,7 @@ public class BuildingConstructionResourcesLeaseRequestedListener {
     public BuildingConstructionResourcesLeased execute(BuildingConstructionResourcesLeaseRequested event) {
         checkResourcesAvailable(event.getCost(), event.getPlanetId());
         ResourcesLease lease = makeResourcesLease(event.getCost(), event.getPlanetId());
-        return createBuildingConstructionResourcesLeasedEvent(lease, event.getConstructionSiteId());
+        return createBuildingConstructionResourcesLeasedEvent(event, lease, event.getConstructionSiteId());
     }
 
     private void checkResourcesAvailable(Cost cost, String planetId) {
@@ -26,7 +27,7 @@ public class BuildingConstructionResourcesLeaseRequestedListener {
         return new ResourcesLease("DB provided ID", cost.getMetal(), cost.getCrystal(), cost.getDeuterium(), planetId);
     }
 
-    private BuildingConstructionResourcesLeased createBuildingConstructionResourcesLeasedEvent(ResourcesLease lease, String constructionSiteId) {
-        return new BuildingConstructionResourcesLeased(lease.getId(), constructionSiteId);
+    private BuildingConstructionResourcesLeased createBuildingConstructionResourcesLeasedEvent(Event source, ResourcesLease lease, String constructionSiteId) {
+        return new BuildingConstructionResourcesLeased(source, lease.getId(), constructionSiteId);
     }
 }

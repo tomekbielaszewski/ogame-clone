@@ -2,16 +2,16 @@ package pl.grizwold.ogame.modules.technology.events.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
-import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingLeveledUp;
+import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructed;
 import pl.grizwold.ogame.modules.technology.domain.Technology;
 import pl.grizwold.ogame.modules.technology.domain.TechnologyTree;
 
 import java.util.List;
 
-public class BuildingLeveledUpListener {
+public class BuildingConstructedListener {
 
-    @EventListener(BuildingLeveledUp.class)
-    public void execute(BuildingLeveledUp event) {
+    @EventListener(BuildingConstructed.class)
+    public void execute(BuildingConstructed event) {
         TechnologyTree technologyTree = recalculateTechnologyTree(event.getBuilding());
         List<Technology> technologies = availableNewTechnology(technologyTree);
 
