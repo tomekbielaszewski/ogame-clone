@@ -2,20 +2,18 @@ package pl.grizwold.ogame.common.domain;
 
 import lombok.Getter;
 
-import java.util.UUID;
-
 @Getter
 public abstract class Event {
     protected final String ownerId;
-    protected final UUID uuid;
+    protected final String correlationToken;
 
-    public Event(String ownerId, UUID uuid) {
+    public Event(String ownerId, String correlationToken) {
         this.ownerId = ownerId;
-        this.uuid = uuid;
+        this.correlationToken = correlationToken;
     }
 
     public Event(Event event) {
         this.ownerId = event.ownerId;
-        this.uuid = event.uuid;
+        this.correlationToken = event.correlationToken;
     }
 }
