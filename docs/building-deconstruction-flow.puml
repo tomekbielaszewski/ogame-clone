@@ -5,7 +5,7 @@ start
 :BuildingDeconstructionRequested;
 if (Building lvl > 0?) then (true)
     if (Enough resources available?) then (true)
-        :BuildingDeconstructionResourcesLeaseRequested;
+        :ResourcesLeaseRequested;
         if (Enough resources available?) then (true)
         split
             :ResourcesSpent;
@@ -16,7 +16,7 @@ if (Building lvl > 0?) then (true)
                 end
             endif
         split again
-            :BuildingDeconstructionResourcesLeased;
+            :ResourcesLeased;
             :ScheduledEventRequested;
             -[dotted]-> Deffered execution;
             :BuildingDeconstructionFinished;

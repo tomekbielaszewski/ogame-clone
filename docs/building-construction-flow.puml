@@ -5,9 +5,9 @@ start
 :BuildingConstructionRequested;
 
 if (Enough resources available?) then (true)
-    :BuildingConstructionResourcesLeaseRequested;
+    :ResourcesLeaseRequested;
     if (Enough resources available?) then (true)
-        :BuildingConstructionResourcesLeased;
+        :ResourcesLeased;
         split
             :ResourcesSpent;
             if(Storage was full and now is not?) then (true)
