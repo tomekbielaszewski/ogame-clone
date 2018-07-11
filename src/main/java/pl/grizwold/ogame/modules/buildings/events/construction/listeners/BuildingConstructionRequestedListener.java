@@ -21,7 +21,7 @@ public class BuildingConstructionRequestedListener {
         checkResourcesAvailable(cost, planetId);
         saveConstructionSite(event.getCorrelationToken(), building);
 
-        return createBuildingConstructionResourcesLeaseRequestEvent(event, cost, planetId);
+        return createResourcesLeaseRequestEvent(event, cost, planetId);
     }
 
     private Building getBuilding(BuildingType buildingType, String planetId) {
@@ -48,7 +48,7 @@ public class BuildingConstructionRequestedListener {
         new ConstructionSite(correlationToken, targetBuildingState, ConstructionSiteType.CONSTRUCTION);
     }
 
-    private ResourcesLeaseRequested createBuildingConstructionResourcesLeaseRequestEvent(Event source, Cost cost, String planetId) {
+    private ResourcesLeaseRequested createResourcesLeaseRequestEvent(Event source, Cost cost, String planetId) {
         return new ResourcesLeaseRequested(source, cost, planetId);
     }
 }
