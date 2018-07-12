@@ -9,13 +9,15 @@ split again
 end split
 
 if (Construction site exist?) then (true)
+    :ResourcesLeaseReleaseRequested;
     if (Resource lease exist?) then (true)
-        :ResourcesLeaseReleaseRequested;
     else (false)
         #red:TODO: resource lease does not exist - canceled before?;
+        detach;
     endif
 else (false)
     #red:TODO: construction site does not exist - canceled before?;
+    detach;
 endif
 
 :ResourcesLeaseReleased;
