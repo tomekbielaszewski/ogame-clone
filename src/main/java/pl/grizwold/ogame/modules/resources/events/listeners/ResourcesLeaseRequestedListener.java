@@ -4,6 +4,7 @@ import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 import pl.grizwold.ogame.modules.resources.domain.ResourcesLease;
+import pl.grizwold.ogame.modules.resources.domain.Status;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeaseRequested;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeased;
 
@@ -24,7 +25,7 @@ public class ResourcesLeaseRequestedListener {
     private ResourcesLease makeResourcesLease(String correlationToken, Cost cost, String planetId) {
         // subtract resources from planet
         // save resource lease in module DB
-        return new ResourcesLease(correlationToken, cost.getMetal(), cost.getCrystal(), cost.getDeuterium(), planetId);
+        return new ResourcesLease(correlationToken, cost.getMetal(), cost.getCrystal(), cost.getDeuterium(), planetId, Status.ACTIVE);
     }
 
     private ResourcesLeased createBuildingConstructionResourcesLeasedEvent(Event source) {
