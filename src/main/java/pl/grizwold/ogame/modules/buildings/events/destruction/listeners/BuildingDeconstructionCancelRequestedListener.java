@@ -20,6 +20,7 @@ public class BuildingDeconstructionCancelRequestedListener {
         ResourcesLeaseReleaseRequested nextEvent = null;
 
         if (constructionSite != null && constructionSite.getType() == DECONSTRUCTION) {
+            cancelConstructionSite(constructionSite);
             nextEvent = new ResourcesLeaseReleaseRequested(event);
         }
 
@@ -29,5 +30,9 @@ public class BuildingDeconstructionCancelRequestedListener {
     private ConstructionSite getConstructionSite(String correlationToken) {
         // get construction site from modules DB
         return null;
+    }
+
+    private void cancelConstructionSite(ConstructionSite constructionSite) {
+        // mark construction site as canceled
     }
 }
