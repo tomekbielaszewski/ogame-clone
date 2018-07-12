@@ -10,4 +10,6 @@ public class ResourcesLease {
     private int deuterium;
 
     private String planetId;
+
+    private Status status;
 }
