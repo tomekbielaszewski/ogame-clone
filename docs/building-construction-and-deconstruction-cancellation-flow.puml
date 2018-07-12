@@ -2,7 +2,11 @@
 
 start
 
+split
 :BuildingConstructionCancelRequested;
+split again
+:BuildingDeconstructionCancelRequested;
+end split
 
 if (Construction site exist?) then (true)
     if (Resource lease exist?) then (true)
