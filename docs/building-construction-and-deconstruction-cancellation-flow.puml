@@ -20,15 +20,17 @@ else (false)
     detach;
 endif
 
-:ResourcesLeaseReleased;
-:ResourceEarned;
-
-if (Storage full?) then (true)
-    :StorageFilled;
-else (false)
-endif
-detach
-
-end
+split
+    :ResourcesLeaseReleased;
+    detach
+split again
+    :ResourceEarned;
+    if (Storage full?) then (true)
+        :StorageFilled;
+        detach
+    else (false)
+    end
+    endif
+end split
 
 @enduml
