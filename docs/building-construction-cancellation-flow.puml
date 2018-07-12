@@ -6,7 +6,7 @@ start
 
 if (Construction site exist?) then (true)
     if (Resource lease exist?) then (true)
-        :ResourcesLeaseCancellationRequested;
+        :ResourcesLeaseReleaseRequested;
     else (false)
         #red:TODO: resource lease does not exist - canceled before?;
     endif
@@ -14,13 +14,14 @@ else (false)
     #red:TODO: construction site does not exist - canceled before?;
 endif
 
-:ResourcesLeaseCancellationRequested;
-:ResourcesLeaseCanceled;
+:ResourcesLeaseReleased;
 :ResourceEarned;
 
 if (Storage full?) then (true)
     :StorageFilled;
+else (false)
 endif
+detach
 
 end
 
