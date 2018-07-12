@@ -42,7 +42,7 @@ public class BuildingDeconstructionFinishedListener {
     }
 
     private void saveBuilding(Building targetBuildingState) {
-
+        // save changed building in modules DB
     }
 
     private Event createResourcesLeaseUsedEvent(Event source) {
