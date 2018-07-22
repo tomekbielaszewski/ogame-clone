@@ -19,6 +19,7 @@ if (Enough resources available?) then (true)
         split again
             :ScheduledEventRequested;
             -[dotted]-> Deffered execution;
+            :ScheduledEventFinished;
             :BuildingConstructionFinished;
             split
                 if (Resource lease still exist?) then (true)

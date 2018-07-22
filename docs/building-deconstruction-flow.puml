@@ -19,6 +19,7 @@ if (Building lvl > 0?) then (true)
             :ResourcesLeased;
             :ScheduledEventRequested;
             -[dotted]-> Deffered execution;
+            :ScheduledEventFinished;
             :BuildingDeconstructionFinished;
             split
                 if (Resource lease still exist?) then (true)
