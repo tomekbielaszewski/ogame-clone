@@ -25,7 +25,7 @@ public class ResourcesLeasedListener {
             long constructionDuration = calculateConstructionDurationInSeconds(constructionSite.getTargetBuildingState());
             LocalDateTime dateTimeOfConstructionFinish = convertDurationToExactDateTime(constructionDuration);
 
-            scheduledEvent = createScheduledEvent(event, dateTimeOfConstructionFinish, createConstructionFinishedEvent(event));
+            scheduledEvent = createScheduledEvent(event, dateTimeOfConstructionFinish);
         }
 
         return scheduledEvent;
@@ -46,11 +46,7 @@ public class ResourcesLeasedListener {
         return LocalDateTime.now().plus(constructionDuration, ChronoUnit.SECONDS);
     }
 
-    private BuildingConstructionFinished createConstructionFinishedEvent(Event source) {
-        return new BuildingConstructionFinished(source);
-    }
-
-    private ScheduledEventRequested createScheduledEvent(Event source, LocalDateTime finish, Event event) {
-        return new ScheduledEventRequested(source, finish, event);
+    private ScheduledEventRequested createScheduledEvent(Event source, LocalDateTime finishDate) {
+        return new ScheduledEventRequested(source, finishDate);
     }
 }
