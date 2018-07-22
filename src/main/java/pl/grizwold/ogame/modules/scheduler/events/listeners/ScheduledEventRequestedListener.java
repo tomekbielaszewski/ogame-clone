@@ -10,10 +10,10 @@ public class ScheduledEventRequestedListener {
 
     @EventListener(ScheduledEventRequested.class)
     public void execute(ScheduledEventRequested event) {
-        saveScheduledEvent(event.getEvent(), event.getFinishDate());
+        saveScheduledEvent(event.getCorrelationToken(), event.getOwnerId(), event.getFinishDate());
     }
 
-    private void saveScheduledEvent(Event event, LocalDateTime finishDate) {
+    private void saveScheduledEvent(String correlationToken, String ownerId, LocalDateTime finishDate) {
         //save event in module-private DB
     }
 }

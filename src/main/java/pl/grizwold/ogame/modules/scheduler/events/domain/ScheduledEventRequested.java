@@ -12,11 +12,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class ScheduledEventRequested extends Event {
     private LocalDateTime finishDate;
-    private Event event;
 
-    public ScheduledEventRequested(Event event, LocalDateTime finishDate, Event scheduledEvent) {
+    public ScheduledEventRequested(Event event, LocalDateTime finishDate) {
         super(event);
         this.finishDate = finishDate;
-        this.event = scheduledEvent;
     }
 }
