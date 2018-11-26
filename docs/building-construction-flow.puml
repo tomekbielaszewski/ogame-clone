@@ -2,54 +2,77 @@
 
 start
 
-:BuildingConstructionRequested;
+#orange:BuildingConstructionRequested;
 
 if (Enough resources available?) then (true)
     :ResourcesLeaseRequested;
     if (Enough resources available?) then (true)
-        :ResourcesLeased;
+        :ResourcesLeaseCreated;
         split
             :ResourcesSpent;
             if(Storage was full and now is not?) then (true)
                 :StorageSpaceAvailable;
+                :ResourcesProductionResumed;
                 detach
             else
                 end
             endif
         split again
+            :BuildingConstructionStarted;
             :ScheduledEventRequested;
-            -[dotted]-> Deffered execution;
-            :ScheduledEventFinished;
-            :BuildingConstructionFinished;
-            split
-                if (Resource lease still exist?) then (true)
-                    :ResourceLeaseUsed;
+            -[dotted]-> Deferred execution;
+            if(Construction cancelled?) then (cancelled)
+                :ScheduledEventCancelled;
+                :ResourcesLeaseReleaseRequested;
+                :ResourcesEarned;
+                if(Storage space was available and is not?) then (true)
+                    :StorageSpaceUnavailable;
+                    :ResourcesProductionStopped;
                     detach
-                else (false)
-                    #red:TODO: resource lease already destroyed
-                    construction canceled?
-                    event fired multiple times?;
+                else
                     end
                 endif
-            split again
-                if (Construction site still exist?) then (true)
-                    :BuildingLeveledUp;
-                    detach
-                else (false)
-                    #red:TODO: construction site already gone
-                    construction canceled?
-                    event fired multiple times?;
-                    end
-                endif
-            end split
+            else (finished)
+                :ScheduledEventFinished;
+                :BuildingConstructionFinished;
+                :ResourcesLeaseBurnRequested;
+                split
+                    if (Resource lease still exist?) then (true)
+                        :ResourceLeaseBurned;
+                        detach
+                    else (false)
+                        #red:TODO: resource lease already destroyed
+                        construction canceled?
+                        event fired multiple times?;
+                        :??;
+                        end
+                    endif
+                split again
+                    if (Construction site still exist?) then (true)
+                        :BuildingConstructed;
+                        if (Building queue not empty?) then (true)
+                            #orange:BuildingConstructionDequeued;
+                            detach
+                        else
+                            end
+                        endif
+                    else (false)
+                        #red:TODO: construction site already gone
+                        construction canceled?
+                        event fired multiple times?;
+                        :??;
+                        end
+                    endif
+                end split
+            endif
         end split
     else (false)
-        #red:TODO: Insufficient resources;
-        end
+        :LeaseUnsuccessful;
+        detach
     endif
 else (false)
-    #red:TODO: Insufficient resources;
-    end
+    :BuildingConstructionUnsuccessful;
+    detach
 endif
 
 
