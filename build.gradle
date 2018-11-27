@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.3.RELEASE'
+		springBootVersion = '2.1.0.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -17,7 +17,6 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'pl.grizwold'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 8
 
 repositories {
 	mavenCentral()
@@ -27,6 +26,8 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.flywaydb:flyway-core')
+	compile('org.jdbi:jdbi3-core:3.5.1')
+	compile('org.jdbi:jdbi3-sqlobject:3.5.1')
 	runtime('org.postgresql:postgresql')
 	compileOnly('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
