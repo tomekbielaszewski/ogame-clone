@@ -2,8 +2,8 @@
 
 start
 
-#orange:BuildingConstructionRequested;
-
+#orange:Building(De)ConstructionRequested;
+-> check if building level > 0 when deconstructing;
 if (Enough resources available?) then (true)
     :ResourcesLeaseRequested;
     if (Enough resources available?) then (true)
