@@ -14,7 +14,7 @@ public class ResourcesLeaseRequestedListener {
     public ResourcesLeased execute(ResourcesLeaseRequested event) {
         checkResourcesAvailable(event.getCost(), event.getPlanetId());
         makeResourcesLease(event.getCorrelationToken(), event.getCost(), event.getPlanetId());
-        return createBuildingConstructionResourcesLeasedEvent(event);
+        return createResourcesLeasedEvent(event);
     }
 
     private void checkResourcesAvailable(Cost cost, String planetId) {
@@ -28,7 +28,7 @@ public class ResourcesLeaseRequestedListener {
         return new ResourcesLease(correlationToken, cost.getMetal(), cost.getCrystal(), cost.getDeuterium(), planetId, Status.ACTIVE);
     }
 
-    private ResourcesLeased createBuildingConstructionResourcesLeasedEvent(Event source) {
+    private ResourcesLeased createResourcesLeasedEvent(Event source) {
         return new ResourcesLeased(source);
     }
 }

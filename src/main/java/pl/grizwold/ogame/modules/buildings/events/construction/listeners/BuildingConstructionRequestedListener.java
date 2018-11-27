@@ -19,7 +19,7 @@ public class BuildingConstructionRequestedListener {
 
         Cost cost = calculateResourcesNeededToLevelUp(building);
         checkResourcesAvailable(cost, planetId);
-        saveConstructionSite(event.getCorrelationToken(), building);
+        createConstructionSite(event.getCorrelationToken(), building);
 
         return createResourcesLeaseRequestEvent(event, cost, planetId);
     }
@@ -42,7 +42,7 @@ public class BuildingConstructionRequestedListener {
         // rises InsufficientResources event?
     }
 
-    private void saveConstructionSite(String correlationToken, Building building) {
+    private void createConstructionSite(String correlationToken, Building building) {
         // save construction site with building data
         Building targetBuildingState = new Building(building.getLevel() + 1, building.getType(), building.getOwner(), building.getPlanetId());
         new ConstructionSite(correlationToken, targetBuildingState, ConstructionSiteType.CONSTRUCTION);
