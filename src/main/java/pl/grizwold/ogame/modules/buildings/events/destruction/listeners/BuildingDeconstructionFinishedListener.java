@@ -19,10 +19,10 @@ public class BuildingDeconstructionFinishedListener {
 
         checkResourcesLease(event.getCorrelationToken());
         checkConstructionSite(event.getCorrelationToken());
-        saveBuilding(constructionSite.getTargetBuildingState());
+        Building newBuilding = saveBuilding(constructionSite);
 
         Event resourcesLeaseUsed = createResourcesLeaseUsedEvent(event);
-        Event buildingDeconstructed = createBuildingDeconstructedEvent(event, constructionSite.getTargetBuildingState());
+        Event buildingDeconstructed = createBuildingDeconstructedEvent(event, newBuilding);
 
         return Arrays.asList(resourcesLeaseUsed, buildingDeconstructed);
     }
@@ -41,8 +41,9 @@ public class BuildingDeconstructionFinishedListener {
         // validate type of construction site to be DECONSTRUCTION
     }
 
-    private void saveBuilding(Building targetBuildingState) {
+    private Building saveBuilding(ConstructionSite targetBuildingState) {
         // save changed building in modules DB
+        return null;
     }
 
     private Event createResourcesLeaseUsedEvent(Event source) {

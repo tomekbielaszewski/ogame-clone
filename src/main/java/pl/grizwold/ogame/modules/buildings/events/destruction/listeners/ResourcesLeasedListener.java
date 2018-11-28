@@ -5,10 +5,11 @@ import pl.grizwold.ogame.common.domain.Event;
 import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
-import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDeconstructionFinished;
+import pl.grizwold.ogame.modules.buildings.domain.ConstructionSiteType;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeased;
 import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledEventRequested;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -21,8 +22,8 @@ public class ResourcesLeasedListener {
         ConstructionSite constructionSite = getConstructionSite(event.getCorrelationToken());
         ScheduledEventRequested scheduledEvent = null;
 
-        if(constructionSite != null && constructionSite.getType() == DECONSTRUCTION) {
-            long deconstructionDuration = calculateDeconstructionDurationInSeconds(constructionSite.getTargetBuildingState());
+        if (constructionSite != null && constructionSite.getType() == DECONSTRUCTION) {
+            long deconstructionDuration = calculateDeconstructionDurationInSeconds(constructionSite.getType(), constructionSite.getBuildingType(), constructionSite.getPlanetId(), constructionSite.getTargetLevel());
             LocalDateTime dateTimeOfDeconstructionFinish = convertDurationToExactDateTime(deconstructionDuration);
 
             scheduledEvent = createScheduledEvent(event, dateTimeOfDeconstructionFinish);
@@ -33,12 +34,12 @@ public class ResourcesLeasedListener {
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
         // get construction site from module DB
-        Building targetBuildingState = new Building(1, BuildingType.METAL_MINE, "owner", "planetId");
-        return new ConstructionSite(constructionSiteId, targetBuildingState, DECONSTRUCTION);
+        Building targetBuildingState = new Building(BigInteger.ONE, BuildingType.METAL_MINE, "owner", "planetId");
+        return new ConstructionSite(constructionSiteId, BuildingType.METAL_MINE, "1", BigInteger.ONE, DECONSTRUCTION);
     }
 
-    private long calculateDeconstructionDurationInSeconds(Building building) {
-        // use Ogame formula to calculate time needed to deconstruct a building
+    private long calculateDeconstructionDurationInSeconds(ConstructionSiteType type, BuildingType buildingType, String planetId, BigInteger targetLevel) {
+        // use Ogame formula to calculate time needed to construct a building
         return 1;
     }
 

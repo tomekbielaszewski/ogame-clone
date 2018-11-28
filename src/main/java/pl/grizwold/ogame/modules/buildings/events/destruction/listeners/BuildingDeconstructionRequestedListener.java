@@ -10,6 +10,8 @@ import pl.grizwold.ogame.modules.buildings.events.destruction.domain.BuildingDec
 import pl.grizwold.ogame.modules.resources.domain.Cost;
 import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeaseRequested;
 
+import java.math.BigInteger;
+
 public class BuildingDeconstructionRequestedListener {
 
     @EventListener(BuildingDeconstructionRequested.class)
@@ -45,8 +47,8 @@ public class BuildingDeconstructionRequestedListener {
 
     private void saveConstructionSite(String correlationToken, Building building) {
         // save construction site with target building data (how the building will be after (de)construction)
-        Building targetBuildingState = new Building(building.getLevel() - 1, building.getType(), building.getOwner(), building.getPlanetId());
-        new ConstructionSite(correlationToken, targetBuildingState, ConstructionSiteType.DECONSTRUCTION);
+        BigInteger targetLevel = building.getLevel().add(BigInteger.ONE);
+        ConstructionSite constructionSite = new ConstructionSite(correlationToken, building.getType(), building.getPlanetId(), targetLevel, ConstructionSiteType.CONSTRUCTION);
     }
 
     private ResourcesLeaseRequested createResourcesLeaseRequestedEvent(Event source, String planetId, Cost cost) {

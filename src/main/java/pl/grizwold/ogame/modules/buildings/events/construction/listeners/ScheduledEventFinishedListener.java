@@ -2,16 +2,12 @@ package pl.grizwold.ogame.modules.buildings.events.construction.listeners;
 
 import org.springframework.context.event.EventListener;
 import pl.grizwold.ogame.common.domain.Event;
-import pl.grizwold.ogame.modules.buildings.domain.Building;
 import pl.grizwold.ogame.modules.buildings.domain.BuildingType;
 import pl.grizwold.ogame.modules.buildings.domain.ConstructionSite;
 import pl.grizwold.ogame.modules.buildings.events.construction.domain.BuildingConstructionFinished;
-import pl.grizwold.ogame.modules.resources.events.domain.ResourcesLeased;
 import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledEventFinished;
-import pl.grizwold.ogame.modules.scheduler.events.domain.ScheduledEventRequested;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.math.BigInteger;
 
 import static pl.grizwold.ogame.modules.buildings.domain.ConstructionSiteType.CONSTRUCTION;
 
@@ -31,8 +27,7 @@ public class ScheduledEventFinishedListener {
 
     private ConstructionSite getConstructionSite(String constructionSiteId) {
         // get construction site from module DB
-        Building targetBuildingState = new Building(1, BuildingType.METAL_MINE, "owner", "planetId");
-        return new ConstructionSite(constructionSiteId, targetBuildingState, CONSTRUCTION);
+        return new ConstructionSite(constructionSiteId, BuildingType.METAL_MINE, "", BigInteger.ONE, CONSTRUCTION);
     }
 
     private BuildingConstructionFinished createConstructionFinishedEvent(Event source) {
